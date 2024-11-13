@@ -1,17 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
 import TodoItem from './components/TodoItem';
+import TodoForm from './components/TodoForm';
+import './App.css';
 
 
 function App() {
+
+  const [todos, setTodos] = useState([
+    {
+        text: "Learn about React",
+        isCompleted: false,
+    },{
+        text: "Meet friend for lunch",
+        isCompleted: false,
+    },{
+        text: "Build really cool todo app",
+        isCompleted: false,
+    }
+  ]);
+
+  const addTodo = (text) => {
+    const newTodos = [...todos, { text }];
+    setTodos(newTodos);
+  };
+
   return (
-    <div>
-        <h1>My todo list</h1>
-        <TodoItem text="Finish plus project." />
-        <TodoItem text="Feed cat." />
-        <TodoItem text="Be awesome." />
+    <div className='app'>
+        <h1 className='todo-list'>My todo list</h1>
+        {todos.map((todo, index) => (
+          <TodoItem todo={todo} key={index} />
+        ))}
+        <TodoForm addTodo={addTodo} />
     </div>
   );
 }
